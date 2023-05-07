@@ -3,11 +3,12 @@ package main
 
 import (
 	"fmt"
-	"github.com/gorilla/websocket"
-	"github.com/joho/godotenv"
 	"log"
 	"net/http"
 	"os"
+
+	"github.com/gorilla/websocket"
+	"github.com/joho/godotenv"
 )
 
 type UserConnected struct {
@@ -45,7 +46,7 @@ func socketHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	clients[conn] = false
-	conn.Close()
+	defer conn.Close()
 }
 
 func messageHandler(message []byte) {
